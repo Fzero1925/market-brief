@@ -16,7 +16,12 @@ const SCRIPTS = [
     'generate-ipo.js',
     'generate-rss.js',
     'generate-screener.js',
-    'generate-stock-pages.js'
+    'generate-stock-pages.js',
+    'generate-etfs.js',
+    'generate-sectors.js',
+    'generate-dividends.js',
+    'generate-economic.js',
+    'generate-futures.js'
 ];
 
 function log(msg) {
