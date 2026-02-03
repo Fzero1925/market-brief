@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ETF Screener | Top ETFs by Category & Expense Ratio</title>
+    <meta name="description" content="Compare top ETFs by category, expense ratio, and performance. SPY, QQQ, VTI, and more with pre-market data.">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0e1a; color: #e8eaed; line-height: 1.6; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+        nav { background: #111827; padding: 15px 20px; border-bottom: 1px solid #1e3a5f; margin: -20px -20px 30px; }
+        nav a { color: #00d4aa; text-decoration: none; margin-right: 20px; }
+        header { text-align: center; padding: 40px 0; }
+        h1 { font-size: 2.2em; background: linear-gradient(135deg, #9b59b6, #3498db); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .card { background: #111827; border: 1px solid #1e3a5f; border-radius: 12px; overflow: hidden; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 15px; text-align: left; border-bottom: 1px solid #1e3a5f; }
+        th { background: #0d1117; color: #8b92a8; font-size: 0.8em; text-transform: uppercase; }
+        td.symbol { font-weight: bold; }
+        td.symbol a { color: #9b59b6; text-decoration: none; }
+        td.symbol a:hover { color: #3498db; }
+        tr:hover { background: rgba(155, 89, 182, 0.05); }
+        footer { text-align: center; padding: 40px 0; color: #4a5568; border-top: 1px solid #1e3a5f; margin-top: 40px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav><a href="/">← Home</a></nav>
+        <header>
+            <h1>📊 ETF Screener</h1>
+            <p style="color: #8b92a8; margin-top: 10px;">Top ETFs by category and expense ratio</p>
+        </header>
+        <div class="card">
+            <table>
+                <thead>
+                    <tr><th>Symbol</th><th>Name</th><th>Category</th><th>Expense Ratio</th></tr>
+                </thead>
+                <tbody>
+        <tr>
+            <td class="symbol"><a href="/etf/SPY.html">SPY</a></td>
+            <td class="name">SPDR S&P 500 ETF</td>
+            <td class="category">Large Cap</td>
+            <td class="expense">0.09%</td>
+        </tr>
+    
+        <tr>
+            <td class="symbol"><a href="/etf/VOO.html">VOO</a></td>
+            <td class="name">Vanguard S&P 500 ETF</td>
+            <td class="category">Large Cap</td>
+            <td class="expense">0.03%</td>
+        </tr>
+    
+        <tr>
+            <td class="symbol"><a href="/etf/IVV.html">IVV</a></td>
+            <td class="name">iShares Core S&P 500 ETF</td>
+            <td class="category">Large Cap</td>
+            <td class="expense">0.03%</td>
+        </tr>
+    
+        <tr>
+            <td class="symbol"><a href="/etf/QQQ.html">QQQ</a></td>
+            <td class="name">Invesco QQQ ETF</td>
+            <td class="category">Tech</td>
+            <td class="expense">0.20%</td>
+        </tr>
+    
+        <tr>
+            <td class="symbol"><a href="/etf/VTI.html">VTI</a></td>
+            <td class="name">Vanguard Total Stock Market ETF</td>
+            <td class="category">Total Market</td>
+            <td class="expense">0.03%</td>
+        </tr>
+    
+        <tr>
+            <td class="symbol"><a href="/etf/VEA.html">VEA</a></td>
+            <td class="name">Vanguard Developed Markets ETF</td>
+            <td class="category">International</td>
+            <td class="expense">0.05%</td>
+        </tr>
+    
+        <tr>
+            <td class="symbol"><a href="/etf/VWO.html">VWO</a></td>
+            <td class="name">Vanguard Emerging Markets ETF</td>
+            <td class="category">Emerging Markets</td>
+            <td class="expense">0.10%</td>
+        </tr>
+    
+        <tr>
+            <td class="symbol"><a href="/etf/VT.html">VT</a></td>
+            <td class="name">Vanguard Total World Stock ETF</td>
+            <td class="category">Global</td>
+            <td class="expense">0.07%</td>
+        </tr>
+    
+        <tr>
+            <td class="symbol"><a href="/etf/AGG.html">AGG</a></td>
+            <td class="name">iShares Core US Aggregate Bond ETF</td>
+            <td class="category">Bonds</td>
+            <td class="expense">0.03%</td>
+        </tr>
+    
+        <tr>
+            <td class="symbol"><a href="/etf/BND.html">BND</a></td>
+            <td class="name">Vanguard Total Bond Market ETF</td>
+            <td class="category">Bonds</td>
+            <td class="expense">0.03%</td>
+        </tr>
+    
+        <tr>
+            <td class="symbol"><a href="/etf/ARKK.html">ARKK</a></td>
+            <td class="name">ARK Innovation ETF</td>
+            <td class="category">Thematic</td>
+            <td class="expense">0.75%</td>
+        </tr>
+    
+        <tr>
+            <td class="symbol"><a href="/etf/IWM.html">IWM</a></td>
+            <td class="name">iShares Russell 2000 ETF</td>
+            <td class="category">Small Cap</td>
+            <td class="expense">0.19%</td>
+        </tr>
+    
+        <tr>
+            <td class="symbol"><a href="/etf/GLD.html">GLD</a></td>
+            <td class="name">SPDR Gold Shares</td>
+            <td class="category">Commodities</td>
+            <td class="expense">0.40%</td>
+        </tr>
+    
+        <tr>
+            <td class="symbol"><a href="/etf/VNQ.html">VNQ</a></td>
+            <td class="name">Vanguard Real Estate ETF</td>
+            <td class="category">Real Estate</td>
+            <td class="expense">0.12%</td>
+        </tr>
+    
+        <tr>
+            <td class="symbol"><a href="/etf/XLF.html">XLF</a></td>
+            <td class="name">Financial Select Sector SPDR</td>
+            <td class="category">Sector</td>
+            <td class="expense">0.10%</td>
+        </tr>
+    
+        <tr>
+            <td class="symbol"><a href="/etf/XLK.html">XLK</a></td>
+            <td class="name">Technology Select Sector SPDR</td>
+            <td class="category">Sector</td>
+            <td class="expense">0.10%</td>
+        </tr>
+    
+        <tr>
+            <td class="symbol"><a href="/etf/XLE.html">XLE</a></td>
+            <td class="name">Energy Select Sector SPDR</td>
+            <td class="category">Sector</td>
+            <td class="expense">0.10%</td>
+        </tr>
+    
+        <tr>
+            <td class="symbol"><a href="/etf/XLV.html">XLV</a></td>
+            <td class="name">Health Care Select Sector SPDR</td>
+            <td class="category">Sector</td>
+            <td class="expense">0.10%</td>
+        </tr>
+    
+        <tr>
+            <td class="symbol"><a href="/etf/TLT.html">TLT</a></td>
+            <td class="name">iShares 20+ Year Treasury Bond ETF</td>
+            <td class="category">Bonds</td>
+            <td class="expense">0.15%</td>
+        </tr>
+    
+        <tr>
+            <td class="symbol"><a href="/etf/LQD.html">LQD</a></td>
+            <td class="name">iShares iBoxx $ Investment Grade Corporate Bond ETF</td>
+            <td class="category">Bonds</td>
+            <td class="expense">0.14%</td>
+        </tr>
+    </tbody>
+            </table>
+        </div>
+        <footer><p>© 2026 Pre-Market Brief</p></footer>
+    </div>
+</body>
+</html>
