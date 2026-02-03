@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futures Market Today | Stock Futures, Gold, Oil & Bond Futures</title>
+    <meta name="description" content="Futures market data today. Track S&P 500 futures, Nasdaq futures, gold, crude oil, and bond futures before market open.">
+    <meta name="keywords" content="futures market, stock futures, gold futures, oil futures, s&p 500 futures">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0e1a; color: #e8eaed; line-height: 1.6; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+        nav { background: #111827; padding: 15px 20px; border-bottom: 1px solid #1e3a5f; margin: -20px -20px 30px; }
+        nav a { color: #f39c12; text-decoration: none; margin-right: 20px; }
+        header { text-align: center; padding: 40px 0; }
+        h1 { font-size: 2.2em; background: linear-gradient(135deg, #f39c12, #e74c3c); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .date { color: #f39c12; font-family: monospace; margin-top: 10px; }
+        
+        .card { background: #111827; border: 1px solid #1e3a5f; border-radius: 12px; overflow: hidden; margin-bottom: 30px; }
+        .card-header { background: linear-gradient(135deg, rgba(243, 156, 18, 0.1), rgba(231, 76, 60, 0.1)); padding: 20px 25px; border-bottom: 1px solid #1e3a5f; }
+        .card-header h2 { color: #f39c12; }
+        
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 15px; text-align: left; border-bottom: 1px solid #1e3a5f; }
+        th { background: #0d1117; color: #8b92a8; font-size: 0.8em; text-transform: uppercase; }
+        td.symbol { font-weight: bold; color: #fff; }
+        td.ticker { color: #8b92a8; font-family: monospace; }
+        td.price { font-family: monospace; font-size: 1.1em; }
+        td.change { font-weight: bold; }
+        td.unit { color: #8b92a8; font-size: 0.9em; }
+        tr.positive td.change { color: #00d4aa; }
+        tr.negative td.change { color: #ff4757; }
+        tr:hover { background: rgba(243, 156, 18, 0.05); }
+        
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin: 30px 0; }
+        .info-card { background: #111827; border: 1px solid #1e3a5f; border-radius: 12px; padding: 25px; }
+        .info-card h3 { color: #f39c12; margin-bottom: 15px; }
+        .info-card p { color: #8b92a8; line-height: 1.8; }
+        
+        footer { text-align: center; padding: 40px 0; color: #4a5568; border-top: 1px solid #1e3a5f; margin-top: 40px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav><a href="/">← Home</a></nav>
+        <header>
+            <h1>📈 Futures Market</h1>
+            <p class="date">Tuesday, February 3, 2026</p>
+        </header>
+
+        <div class="card">
+            <div class="card-header"><h2>Stock Index Futures</h2></div>
+            <table>
+                <thead><tr><th>Contract</th><th>Symbol</th><th>Price</th><th>Change</th><th>Unit</th></tr></thead>
+                <tbody>
+        <tr class="positive">
+            <td class="symbol">E-mini S&P 500</td>
+            <td class="ticker">ES</td>
+            <td class="price">-</td>
+            <td class="change">-</td>
+            <td class="unit">Index</td>
+        </tr>
+    
+        <tr class="positive">
+            <td class="symbol">E-mini Nasdaq-100</td>
+            <td class="ticker">NQ</td>
+            <td class="price">-</td>
+            <td class="change">-</td>
+            <td class="unit">Index</td>
+        </tr>
+    
+        <tr class="positive">
+            <td class="symbol">E-mini Dow</td>
+            <td class="ticker">YM</td>
+            <td class="price">-</td>
+            <td class="change">-</td>
+            <td class="unit">Index</td>
+        </tr>
+    
+        <tr class="positive">
+            <td class="symbol">E-mini Russell 2000</td>
+            <td class="ticker">RTY</td>
+            <td class="price">-</td>
+            <td class="change">-</td>
+            <td class="unit">Index</td>
+        </tr>
+    
+        <tr class="positive">
+            <td class="symbol">Gold</td>
+            <td class="ticker">GC</td>
+            <td class="price">-</td>
+            <td class="change">-</td>
+            <td class="unit">Troy Oz</td>
+        </tr>
+    
+        <tr class="positive">
+            <td class="symbol">Silver</td>
+            <td class="ticker">SI</td>
+            <td class="price">-</td>
+            <td class="change">-</td>
+            <td class="unit">Troy Oz</td>
+        </tr>
+    
+        <tr class="positive">
+            <td class="symbol">Crude Oil (WTI)</td>
+            <td class="ticker">CL</td>
+            <td class="price">-</td>
+            <td class="change">-</td>
+            <td class="unit">Barrel</td>
+        </tr>
+    
+        <tr class="positive">
+            <td class="symbol">Natural Gas</td>
+            <td class="ticker">NG</td>
+            <td class="price">-</td>
+            <td class="change">-</td>
+            <td class="unit">MMBtu</td>
+        </tr>
+    
+        <tr class="positive">
+            <td class="symbol">30-Year T-Bond</td>
+            <td class="ticker">ZB</td>
+            <td class="price">-</td>
+            <td class="change">-</td>
+            <td class="unit">$100k</td>
+        </tr>
+    
+        <tr class="positive">
+            <td class="symbol">10-Year T-Note</td>
+            <td class="ticker">ZN</td>
+            <td class="price">-</td>
+            <td class="change">-</td>
+            <td class="unit">$100k</td>
+        </tr>
+    
+        <tr class="positive">
+            <td class="symbol">Euro FX</td>
+            <td class="ticker">6E</td>
+            <td class="price">-</td>
+            <td class="change">-</td>
+            <td class="unit">€125k</td>
+        </tr>
+    
+        <tr class="positive">
+            <td class="symbol">Japanese Yen</td>
+            <td class="ticker">6J</td>
+            <td class="price">-</td>
+            <td class="change">-</td>
+            <td class="unit">¥12.5M</td>
+        </tr>
+    </tbody>
+            </table>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>🌅 Pre-Market Indicator</h3>
+                <p>Stock futures trade nearly 24 hours a day, providing an early indication of how the stock market will open. S&P 500 futures (ES) and Nasdaq futures (NQ) are the most closely watched.</p>
+            </div>
+            <div class="info-card">
+                <h3>🛢️ Commodity Futures</h3>
+                <p>Crude oil and gold futures react to global events, inflation expectations, and currency movements. These can impact energy and mining stocks significantly.</p>
+            </div>
+            <div class="info-card">
+                <h3>📊 Bond Futures</h3>
+                <p>Treasury bond futures reflect interest rate expectations. When yields rise, bond futures fall, affecting financial stocks and mortgage rates.</p>
+            </div>
+        </div>
+
+        <footer><p>© 2026 Pre-Market Brief | Futures data for informational purposes only</p></footer>
+    </div>
+</body>
+</html>
