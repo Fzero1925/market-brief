@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Earnings Calendar 2025 | This Week & Upcoming Reports</title>
+    <meta name="description" content="Stock earnings calendar for this week. Track upcoming earnings reports for AAPL, TSLA, NVDA, and major companies.">
+    <meta name="keywords" content="earnings calendar, stock earnings this week, earnings report schedule, quarterly earnings">
+    <link rel="canonical" href="https://premarketbrief.com/earnings-calendar">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0e1a;
+            color: #e8eaed;
+            line-height: 1.6;
+        }
+        .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+        
+        header { text-align: center; padding: 40px 0 30px; }
+        h1 { 
+            font-size: 2.2em; 
+            background: linear-gradient(135deg, #00d4aa, #00a8e8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        .tagline { color: #8b92a8; font-size: 1.1em; }
+        
+        nav { 
+            background: #111827;
+            padding: 15px 20px;
+            border-bottom: 1px solid #1e3a5f;
+            margin: -20px -20px 30px;
+        }
+        nav a {
+            color: #00d4aa;
+            text-decoration: none;
+            margin-right: 20px;
+            font-size: 0.9em;
+        }
+        nav a:hover { text-decoration: underline; }
+        
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .stat-box {
+            background: linear-gradient(135deg, rgba(0, 212, 170, 0.1), rgba(0, 168, 232, 0.1));
+            border: 1px solid #1e3a5f;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+        .stat-number { font-size: 2em; font-weight: bold; color: #00d4aa; }
+        .stat-label { color: #8b92a8; font-size: 0.9em; margin-top: 5px; }
+        
+        .card {
+            background: #111827;
+            border: 1px solid #1e3a5f;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        .card-header {
+            background: linear-gradient(135deg, rgba(0, 212, 170, 0.1), rgba(0, 168, 232, 0.1));
+            padding: 20px 25px;
+            border-bottom: 1px solid #1e3a5f;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .card-header h2 { color: #00d4aa; font-size: 1.2em; }
+        .card-badge {
+            background: rgba(0, 212, 170, 0.2);
+            color: #00d4aa;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+        }
+        
+        table { width: 100%; border-collapse: collapse; }
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #1e3a5f;
+        }
+        th {
+            background: #0d1117;
+            color: #8b92a8;
+            font-weight: 600;
+            font-size: 0.8em;
+            text-transform: uppercase;
+        }
+        tr:hover { background: rgba(0, 212, 170, 0.05); }
+        
+        td.date { 
+            font-weight: bold; 
+            color: #00d4aa;
+            white-space: nowrap;
+        }
+        td.symbol { 
+            font-weight: bold; 
+            color: #fff;
+            font-size: 1.1em;
+        }
+        td.company { color: #e8eaed; }
+        td.sector { font-size: 0.85em; }
+        td.eps { font-family: monospace; }
+        td.growth { font-weight: bold; }
+        td.preview { text-align: right; }
+        
+        .tag {
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.75em;
+            font-weight: bold;
+        }
+        .tag.technology { background: rgba(0, 168, 232, 0.2); color: #00a8e8; }
+        .tag.finance { background: rgba(0, 212, 170, 0.2); color: #00d4aa; }
+        .tag.healthcare { background: rgba(255, 71, 87, 0.2); color: #ff4757; }
+        .tag.retail { background: rgba(247, 147, 26, 0.2); color: #f7931a; }
+        .tag.consumer { background: rgba(155, 89, 182, 0.2); color: #9b59b6; }
+        .tag.energy { background: rgba(231, 76, 60, 0.2); color: #e74c3c; }
+        
+        .positive { color: #00d4aa; }
+        .negative { color: #ff4757; }
+        
+        .preview-link {
+            color: #8b92a8;
+            text-decoration: none;
+            font-size: 0.9em;
+        }
+        .preview-link:hover { color: #00d4aa; }
+        
+        .info-section {
+            background: #111827;
+            border: 1px solid #1e3a5f;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        .info-section h3 {
+            color: #00d4aa;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        .info-section p {
+            color: #8b92a8;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+        .info-section p:last-child { margin-bottom: 0; }
+        
+        .ad-container {
+            background: #1a1f2e;
+            border: 2px dashed #2d3748;
+            border-radius: 12px;
+            padding: 60px 20px;
+            text-align: center;
+            margin: 30px 0;
+            color: #4a5568;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: #4a5568;
+            font-size: 0.85em;
+            border-top: 1px solid #1e3a5f;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="/">← Home</a>
+            <a href="/earnings-calendar">Earnings</a>
+            <a href="/crypto.html">Crypto</a>
+        </nav>
+        
+        <header>
+            <h1>📅 Stock Earnings Calendar</h1>
+            <p class="tagline">Upcoming quarterly earnings reports and estimates</p>
+        </header>
+
+        <div class="ad-container">
+            AdSense Banner<br>
+            <small>Finance & Trading Keywords</small>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat-box">
+                <div class="stat-number">11</div>
+                <div class="stat-label">This Week</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">33</div>
+                <div class="stat-label">Next 30 Days</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">26</div>
+                <div class="stat-label">Expected Growth</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2>🔥 This Week's Earnings</h2>
+                <span class="card-badge">High Volatility Expected</span>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Symbol</th>
+                        <th>Company</th>
+                        <th>Sector</th>
+                        <th>Est. EPS</th>
+                        <th>Growth</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+        <tr>
+            <td class="date">Tue, Feb 3</td>
+            <td class="symbol">AAPL</td>
+            <td class="company">Apple Inc</td>
+            <td class="sector"><span class="tag technology">Technology</span></td>
+            <td class="eps">$4.05</td>
+            <td class="growth negative">-6.7%</td>
+            <td class="preview">
+                <a href="https://finance.yahoo.com/quote/AAPL" target="_blank" class="preview-link">View →</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="date">Tue, Feb 3</td>
+            <td class="symbol">JNJ</td>
+            <td class="company">Johnson & Johnson</td>
+            <td class="sector"><span class="tag healthcare">Healthcare</span></td>
+            <td class="eps">$4.41</td>
+            <td class="growth negative">-2.4%</td>
+            <td class="preview">
+                <a href="https://finance.yahoo.com/quote/JNJ" target="_blank" class="preview-link">View →</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="date">Tue, Feb 3</td>
+            <td class="symbol">JD</td>
+            <td class="company">JD.com Inc</td>
+            <td class="sector"><span class="tag retail">Retail</span></td>
+            <td class="eps">$2.14</td>
+            <td class="growth positive">24.8%</td>
+            <td class="preview">
+                <a href="https://finance.yahoo.com/quote/JD" target="_blank" class="preview-link">View →</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="date">Thu, Feb 5</td>
+            <td class="symbol">MSFT</td>
+            <td class="company">Microsoft Corp</td>
+            <td class="sector"><span class="tag technology">Technology</span></td>
+            <td class="eps">$5.19</td>
+            <td class="growth negative">-7.1%</td>
+            <td class="preview">
+                <a href="https://finance.yahoo.com/quote/MSFT" target="_blank" class="preview-link">View →</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="date">Thu, Feb 5</td>
+            <td class="symbol">UNH</td>
+            <td class="company">UnitedHealth Group</td>
+            <td class="sector"><span class="tag healthcare">Healthcare</span></td>
+            <td class="eps">$2.79</td>
+            <td class="growth positive">18.8%</td>
+            <td class="preview">
+                <a href="https://finance.yahoo.com/quote/UNH" target="_blank" class="preview-link">View →</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="date">Thu, Feb 5</td>
+            <td class="symbol">PDD</td>
+            <td class="company">PDD Holdings</td>
+            <td class="sector"><span class="tag retail">Retail</span></td>
+            <td class="eps">$2.23</td>
+            <td class="growth positive">16.8%</td>
+            <td class="preview">
+                <a href="https://finance.yahoo.com/quote/PDD" target="_blank" class="preview-link">View →</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="date">Sat, Feb 7</td>
+            <td class="symbol">GOOGL</td>
+            <td class="company">Alphabet Inc</td>
+            <td class="sector"><span class="tag technology">Technology</span></td>
+            <td class="eps">$1.29</td>
+            <td class="growth positive">9.7%</td>
+            <td class="preview">
+                <a href="https://finance.yahoo.com/quote/GOOGL" target="_blank" class="preview-link">View →</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="date">Sat, Feb 7</td>
+            <td class="symbol">PFE</td>
+            <td class="company">Pfizer Inc</td>
+            <td class="sector"><span class="tag healthcare">Healthcare</span></td>
+            <td class="eps">$4.08</td>
+            <td class="growth positive">6.8%</td>
+            <td class="preview">
+                <a href="https://finance.yahoo.com/quote/PFE" target="_blank" class="preview-link">View →</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="date">Sat, Feb 7</td>
+            <td class="symbol">BIDU</td>
+            <td class="company">Baidu Inc</td>
+            <td class="sector"><span class="tag technology">Technology</span></td>
+            <td class="eps">$5.44</td>
+            <td class="growth positive">7.4%</td>
+            <td class="preview">
+                <a href="https://finance.yahoo.com/quote/BIDU" target="_blank" class="preview-link">View →</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="date">Mon, Feb 9</td>
+            <td class="symbol">AMZN</td>
+            <td class="company">Amazon.com Inc</td>
+            <td class="sector"><span class="tag technology">Technology</span></td>
+            <td class="eps">$4.58</td>
+            <td class="growth negative">-4.0%</td>
+            <td class="preview">
+                <a href="https://finance.yahoo.com/quote/AMZN" target="_blank" class="preview-link">View →</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="date">Mon, Feb 9</td>
+            <td class="symbol">ABBV</td>
+            <td class="company">AbbVie Inc</td>
+            <td class="sector"><span class="tag healthcare">Healthcare</span></td>
+            <td class="eps">$2.86</td>
+            <td class="growth positive">10.9%</td>
+            <td class="preview">
+                <a href="https://finance.yahoo.com/quote/ABBV" target="_blank" class="preview-link">View →</a>
+            </td>
+        </tr>
+    
+                </tbody>
+            </table>
+        </div>
+
+        <div class="ad-container">
+            AdSense In-Feed Ad<br>
+            <small>Brokerage & Investment Services</small>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2>📈 Next 30 Days</h2>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Symbol</th>
+                        <th>Company</th>
+                        <th>Sector</th>
+                        <th>Est. EPS</th>
+                        <th>Growth</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+        <tr>
+            <td class="date">Tue, Feb 3</td>
+            <td class="symbol">AAPL</td>
+            <td class="company">Apple Inc</td>
+            <td class="sector"><span class="tag technology">Technology</span></td>
+            <td class="eps">$4.05</td>
+            <td class="growth negative">-6.7%</td>
+            <td class="preview">
+                <a href="https://finance.yahoo.com/quote/AAPL" target="_blank" class="preview-link">View →</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="date">Tue, Feb 3</td>
+            <td class="symbol">JNJ</td>
+            <td class="company">Johnson & Johnson</td>
+            <td class="sector"><span class="tag healthcare">Healthcare</span></td>
+            <td class="eps">$4.41</td>
+            <td class="growth negative">-2.4%</td>
+            <td class="preview">
+                <a href="https://finance.yahoo.com/quote/JNJ" target="_blank" class="preview-link">View →</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="date">Tue, Feb 3</td>
+            <td class="symbol">JD</td>
+            <td class="company">JD.com Inc</td>
+            <td class="sector"><span class="tag retail">Retail</span></td>
+            <td class="eps">$2.14</td>
+            <td class="growth positive">24.8%</td>
+            <td class="preview">
+                <a href="https://finance.yahoo.com/quote/JD" target="_blank" class="preview-link">View →</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="date">Thu, Feb 5</td>
+            <td class="symbol">MSFT</td>
+            <td class="company">Microsoft Corp</td>
+            <td class="sector"><span class="tag technology">Technology</span></td>
+            <td class="eps">$5.19</td>
+            <td class="growth negative">-7.1%</td>
+            <td class="preview">
+                <a href="https://finance.yahoo.com/quote/MSFT" target="_blank" class="preview-link">View →</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="date">Thu, Feb 5</td>
+            <td class="symbol">UNH</td>
+            <td class="company">UnitedHealth Group</td>
+            <td class="sector"><span class="tag healthcare">Healthcare</span></td>
+            <td class="eps">$2.79</td>
+            <td class="growth positive">18.8%</td>
+            <td class="preview">
+                <a href="https://finance.yahoo.com/quote/UNH" target="_blank" class="preview-link">View →</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="date">Thu, Feb 5</td>
+            <td class="symbol">PDD</td>
+            <td class="company">PDD Holdings</td>
+            <td class="sector"><span class="tag retail">Retail</span></td>
+            <td class="eps">$2.23</td>
+            <td class="growth positive">16.8%</td>
+            <td class="preview">
+                <a href="https://finance.yahoo.com/quote/PDD" target="_blank" class="preview-link">View →</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="date">Sat, Feb 7</td>
+            <td class="symbol">GOOGL</td>
+            <td class="company">Alphabet Inc</td>
+            <td class="sector"><span class="tag technology">Technology</span></td>
+            <td class="eps">$1.29</td>
+            <td class="growth positive">9.7%</td>
+            <td class="preview">
+                <a href="https://finance.yahoo.com/quote/GOOGL" target="_blank" class="preview-link">View →</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="date">Sat, Feb 7</td>
+            <td class="symbol">PFE</td>
+            <td class="company">Pfizer Inc</td>
+            <td class="sector"><span class="tag healthcare">Healthcare</span></td>
+            <td class="eps">$4.08</td>
+            <td class="growth positive">6.8%</td>
+            <td class="preview">
+                <a href="https://finance.yahoo.com/quote/PFE" target="_blank" class="preview-link">View →</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="date">Sat, Feb 7</td>
+            <td class="symbol">BIDU</td>
+            <td class="company">Baidu Inc</td>
+            <td class="sector"><span class="tag technology">Technology</span></td>
+            <td class="eps">$5.44</td>
+            <td class="growth positive">7.4%</td>
+            <td class="preview">
+                <a href="https://finance.yahoo.com/quote/BIDU" target="_blank" class="preview-link">View →</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="date">Mon, Feb 9</td>
+            <td class="symbol">AMZN</td>
+            <td class="company">Amazon.com Inc</td>
+            <td class="sector"><span class="tag technology">Technology</span></td>
+            <td class="eps">$4.58</td>
+            <td class="growth negative">-4.0%</td>
+            <td class="preview">
+                <a href="https://finance.yahoo.com/quote/AMZN" target="_blank" class="preview-link">View →</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="date">Mon, Feb 9</td>
+            <td class="symbol">ABBV</td>
+            <td class="company">AbbVie Inc</td>
+            <td class="sector"><span class="tag healthcare">Healthcare</span></td>
+            <td class="eps">$2.86</td>
+            <td class="growth positive">10.9%</td>
+            <td class="preview">
+                <a href="https://finance.yahoo.com/quote/ABBV" target="_blank" class="preview-link">View →</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="date">Wed, Feb 11</td>
+            <td class="symbol">META</td>
+            <td class="company">Meta Platforms</td>
+            <td class="sector"><span class="tag technology">Technology</span></td>
+            <td class="eps">$3.73</td>
+            <td class="growth positive">14.2%</td>
+            <td class="preview">
+                <a href="https://finance.yahoo.com/quote/META" target="_blank" class="preview-link">View →</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="date">Wed, Feb 11</td>
+            <td class="symbol">MRK</td>
+            <td class="company">Merck & Co</td>
+            <td class="sector"><span class="tag healthcare">Healthcare</span></td>
+            <td class="eps">$4.95</td>
+            <td class="growth positive">25.4%</td>
+            <td class="preview">
+                <a href="https://finance.yahoo.com/quote/MRK" target="_blank" class="preview-link">View →</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="date">Fri, Feb 13</td>
+            <td class="symbol">NVDA</td>
+            <td class="company">NVIDIA Corp</td>
+            <td class="sector"><span class="tag technology">Technology</span></td>
+            <td class="eps">$3.93</td>
+            <td class="growth positive">5.0%</td>
+            <td class="preview">
+                <a href="https://finance.yahoo.com/quote/NVDA" target="_blank" class="preview-link">View →</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="date">Fri, Feb 13</td>
+            <td class="symbol">LLY</td>
+            <td class="company">Eli Lilly</td>
+            <td class="sector"><span class="tag healthcare">Healthcare</span></td>
+            <td class="eps">$1.54</td>
+            <td class="growth positive">25.1%</td>
+            <td class="preview">
+                <a href="https://finance.yahoo.com/quote/LLY" target="_blank" class="preview-link">View →</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="date">Sun, Feb 15</td>
+            <td class="symbol">TSLA</td>
+            <td class="company">Tesla Inc</td>
+            <td class="sector"><span class="tag technology">Technology</span></td>
+            <td class="eps">$5.24</td>
+            <td class="growth positive">23.5%</td>
+            <td class="preview">
+                <a href="https://finance.yahoo.com/quote/TSLA" target="_blank" class="preview-link">View →</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="date">Sun, Feb 15</td>
+            <td class="symbol">WMT</td>
+            <td class="company">Walmart Inc</td>
+            <td class="sector"><span class="tag retail">Retail</span></td>
+            <td class="eps">$0.73</td>
+            <td class="growth positive">27.3%</td>
+            <td class="preview">
+                <a href="https://finance.yahoo.com/quote/WMT" target="_blank" class="preview-link">View →</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="date">Tue, Feb 17</td>
+            <td class="symbol">NFLX</td>
+            <td class="company">Netflix Inc</td>
+            <td class="sector"><span class="tag technology">Technology</span></td>
+            <td class="eps">$4.01</td>
+            <td class="growth positive">7.2%</td>
+            <td class="preview">
+                <a href="https://finance.yahoo.com/quote/NFLX" target="_blank" class="preview-link">View →</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="date">Tue, Feb 17</td>
+            <td class="symbol">HD</td>
+            <td class="company">Home Depot</td>
+            <td class="sector"><span class="tag retail">Retail</span></td>
+            <td class="eps">$1.93</td>
+            <td class="growth positive">28.7%</td>
+            <td class="preview">
+                <a href="https://finance.yahoo.com/quote/HD" target="_blank" class="preview-link">View →</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="date">Thu, Feb 19</td>
+            <td class="symbol">JPM</td>
+            <td class="company">JPMorgan Chase</td>
+            <td class="sector"><span class="tag finance">Finance</span></td>
+            <td class="eps">$4.84</td>
+            <td class="growth positive">4.8%</td>
+            <td class="preview">
+                <a href="https://finance.yahoo.com/quote/JPM" target="_blank" class="preview-link">View →</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="date">Thu, Feb 19</td>
+            <td class="symbol">COST</td>
+            <td class="company">Costco Wholesale</td>
+            <td class="sector"><span class="tag retail">Retail</span></td>
+            <td class="eps">$3.56</td>
+            <td class="growth positive">21.5%</td>
+            <td class="preview">
+                <a href="https://finance.yahoo.com/quote/COST" target="_blank" class="preview-link">View →</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="date">Sat, Feb 21</td>
+            <td class="symbol">BAC</td>
+            <td class="company">Bank of America</td>
+            <td class="sector"><span class="tag finance">Finance</span></td>
+            <td class="eps">$1.34</td>
+            <td class="growth positive">9.1%</td>
+            <td class="preview">
+                <a href="https://finance.yahoo.com/quote/BAC" target="_blank" class="preview-link">View →</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="date">Sat, Feb 21</td>
+            <td class="symbol">NKE</td>
+            <td class="company">Nike Inc</td>
+            <td class="sector"><span class="tag consumer">Consumer</span></td>
+            <td class="eps">$2.69</td>
+            <td class="growth positive">15.1%</td>
+            <td class="preview">
+                <a href="https://finance.yahoo.com/quote/NKE" target="_blank" class="preview-link">View →</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="date">Mon, Feb 23</td>
+            <td class="symbol">WFC</td>
+            <td class="company">Wells Fargo</td>
+            <td class="sector"><span class="tag finance">Finance</span></td>
+            <td class="eps">$4.49</td>
+            <td class="growth positive">3.4%</td>
+            <td class="preview">
+                <a href="https://finance.yahoo.com/quote/WFC" target="_blank" class="preview-link">View →</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="date">Mon, Feb 23</td>
+            <td class="symbol">MCD</td>
+            <td class="company">McDonald's Corp</td>
+            <td class="sector"><span class="tag consumer">Consumer</span></td>
+            <td class="eps">$2.09</td>
+            <td class="growth negative">-3.0%</td>
+            <td class="preview">
+                <a href="https://finance.yahoo.com/quote/MCD" target="_blank" class="preview-link">View →</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="date">Wed, Feb 25</td>
+            <td class="symbol">GS</td>
+            <td class="company">Goldman Sachs</td>
+            <td class="sector"><span class="tag finance">Finance</span></td>
+            <td class="eps">$3.34</td>
+            <td class="growth positive">17.2%</td>
+            <td class="preview">
+                <a href="https://finance.yahoo.com/quote/GS" target="_blank" class="preview-link">View →</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="date">Wed, Feb 25</td>
+            <td class="symbol">SBUX</td>
+            <td class="company">Starbucks Corp</td>
+            <td class="sector"><span class="tag consumer">Consumer</span></td>
+            <td class="eps">$5.42</td>
+            <td class="growth positive">28.5%</td>
+            <td class="preview">
+                <a href="https://finance.yahoo.com/quote/SBUX" target="_blank" class="preview-link">View →</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="date">Fri, Feb 27</td>
+            <td class="symbol">MS</td>
+            <td class="company">Morgan Stanley</td>
+            <td class="sector"><span class="tag finance">Finance</span></td>
+            <td class="eps">$0.87</td>
+            <td class="growth positive">12.2%</td>
+            <td class="preview">
+                <a href="https://finance.yahoo.com/quote/MS" target="_blank" class="preview-link">View →</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="date">Fri, Feb 27</td>
+            <td class="symbol">XOM</td>
+            <td class="company">Exxon Mobil</td>
+            <td class="sector"><span class="tag energy">Energy</span></td>
+            <td class="eps">$3.20</td>
+            <td class="growth negative">-4.4%</td>
+            <td class="preview">
+                <a href="https://finance.yahoo.com/quote/XOM" target="_blank" class="preview-link">View →</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="date">Sun, Mar 1</td>
+            <td class="symbol">V</td>
+            <td class="company">Visa Inc</td>
+            <td class="sector"><span class="tag finance">Finance</span></td>
+            <td class="eps">$0.68</td>
+            <td class="growth positive">3.1%</td>
+            <td class="preview">
+                <a href="https://finance.yahoo.com/quote/V" target="_blank" class="preview-link">View →</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="date">Sun, Mar 1</td>
+            <td class="symbol">CVX</td>
+            <td class="company">Chevron Corp</td>
+            <td class="sector"><span class="tag energy">Energy</span></td>
+            <td class="eps">$2.96</td>
+            <td class="growth negative">-1.4%</td>
+            <td class="preview">
+                <a href="https://finance.yahoo.com/quote/CVX" target="_blank" class="preview-link">View →</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="date">Tue, Mar 3</td>
+            <td class="symbol">MA</td>
+            <td class="company">Mastercard Inc</td>
+            <td class="sector"><span class="tag finance">Finance</span></td>
+            <td class="eps">$4.95</td>
+            <td class="growth positive">22.0%</td>
+            <td class="preview">
+                <a href="https://finance.yahoo.com/quote/MA" target="_blank" class="preview-link">View →</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="date">Tue, Mar 3</td>
+            <td class="symbol">BABA</td>
+            <td class="company">Alibaba Group</td>
+            <td class="sector"><span class="tag technology">Technology</span></td>
+            <td class="eps">$2.79</td>
+            <td class="growth positive">13.4%</td>
+            <td class="preview">
+                <a href="https://finance.yahoo.com/quote/BABA" target="_blank" class="preview-link">View →</a>
+            </td>
+        </tr>
+    
+                </tbody>
+            </table>
+        </div>
+
+        <div class="info-section">
+            <h3>📊 What is an Earnings Calendar?</h3>
+            <p>An earnings calendar tracks when publicly traded companies release their quarterly financial results. These reports include revenue, earnings per share (EPS), and forward guidance that can significantly impact stock prices.</p>
+            
+            <h3>⏰ When Do Companies Report?</h3>
+            <p>Most companies report earnings before the market opens (7:00-9:00 AM ET) or after the market closes (4:00-6:00 PM ET). Pre-market reports often see immediate price action at the 9:30 AM opening bell.</p>
+            
+            <h3>📈 Why Earnings Matter</h3>
+            <p>Earnings reports are among the biggest catalysts for stock price movement. Companies beating expectations often see rallies, while misses can trigger sharp declines. The "earnings surprise" - the difference between estimated and actual EPS - is particularly important.</p>
+        </div>
+
+        <footer>
+            <p>© 2026 Pre-Market Brief | Data for informational purposes only</p>
+            <p style="margin-top: 10px; font-size: 0.8em;">Not investment advice. Earnings dates subject to change.</p>
+        </footer>
+    </div>
+</body>
+</html>

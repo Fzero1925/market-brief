@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Screener | Pre-Market Gap Up & High Volume Scanner</title>
+    <meta name="description" content="Free pre-market stock screener. Find gap up stocks, high volume movers, and premarket gainers before the market opens.">
+    <meta name="keywords" content="stock screener, premarket scanner, gap up stocks, high volume stocks, pre market filter">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0e1a;
+            color: #e8eaed;
+            line-height: 1.6;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        
+        header { text-align: center; padding: 40px 0; }
+        h1 { 
+            font-size: 2.2em; 
+            background: linear-gradient(135deg, #00d4aa, #00a8e8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        .tagline { color: #8b92a8; }
+        
+        nav { 
+            background: #111827;
+            padding: 15px 20px;
+            border-bottom: 1px solid #1e3a5f;
+            margin: -20px -20px 30px;
+        }
+        nav a {
+            color: #00d4aa;
+            text-decoration: none;
+            margin-right: 20px;
+            font-size: 0.9em;
+        }
+        
+        .filters {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #111827;
+            border-radius: 12px;
+            border: 1px solid #1e3a5f;
+        }
+        .filter-btn {
+            background: #1a1f2e;
+            border: 1px solid #2d3748;
+            color: #8b92a8;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: rgba(0, 212, 170, 0.1);
+            border-color: #00d4aa;
+            color: #00d4aa;
+        }
+        
+        .screen-section {
+            margin-bottom: 40px;
+        }
+        .screen-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .screen-header h2 {
+            color: #00d4aa;
+            font-size: 1.3em;
+        }
+        .count-badge {
+            background: rgba(0, 212, 170, 0.2);
+            color: #00d4aa;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+        }
+        
+        .stock-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .stock-card {
+            background: #111827;
+            border: 1px solid #1e3a5f;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.2s;
+        }
+        .stock-card:hover {
+            border-color: #00d4aa;
+            transform: translateY(-2px);
+        }
+        .stock-card.up { border-left: 4px solid #00d4aa; }
+        .stock-card.down { border-left: 4px solid #ff4757; }
+        
+        .stock-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .symbol { font-size: 1.3em; font-weight: bold; color: #fff; }
+        .sector { font-size: 0.75em; color: #8b92a8; background: #1a1f2e; padding: 3px 8px; border-radius: 4px; }
+        .stock-name { color: #8b92a8; font-size: 0.9em; margin-bottom: 15px; }
+        
+        .stock-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        .metric { text-align: center; }
+        .metric .label { display: block; font-size: 0.7em; color: #4a5568; text-transform: uppercase; }
+        .metric .value { display: block; font-size: 1.1em; font-weight: bold; margin-top: 5px; }
+        .positive { color: #00d4aa; }
+        .negative { color: #ff4757; }
+        
+        .ad-container {
+            background: #1a1f2e;
+            border: 2px dashed #2d3748;
+            border-radius: 12px;
+            padding: 60px 20px;
+            text-align: center;
+            margin: 30px 0;
+            color: #4a5568;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px;
+            color: #4a5568;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: #4a5568;
+            border-top: 1px solid #1e3a5f;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="/">← Home</a>
+            <a href="/earnings-calendar.html">Earnings</a>
+            <a href="/screener.html">Screener</a>
+            <a href="/crypto.html">Crypto</a>
+        </nav>
+        
+        <header>
+            <h1>🔍 Pre-Market Screener</h1>
+            <p class="tagline">Find gap up stocks and high volume movers</p>
+        </header>
+
+        <div class="ad-container">
+            AdSense Header Ad<br>
+            <small>Stock Trading Keywords</small>
+        </div>
+
+        <div class="filters">
+            <button class="filter-btn active">All Stocks</button>
+            <button class="filter-btn">Gap Up >5%</button>
+            <button class="filter-btn">Gap Down >5%</button>
+            <button class="filter-btn">High Volume</button>
+            <button class="filter-btn">Penny Stocks</button>
+        </div>
+
+        <div class="screen-section">
+            <div class="screen-header">
+                <h2>🚀 Gap Up Stocks (>5%)</h2>
+                <span class="count-badge">1 Results</span>
+            </div>
+            <div class="stock-grid">
+                
+        <div class="stock-card up">
+            <div class="stock-header">
+                <span class="symbol">GME</span>
+                <span class="sector">N/A</span>
+            </div>
+            <div class="stock-name">GME</div>
+            <div class="stock-metrics">
+                <div class="metric">
+                    <span class="label">Price</span>
+                    <span class="value">$25.85</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Change</span>
+                    <span class="value change positive">+8.25%</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Volume</span>
+                    <span class="value">24.3M</span>
+                </div>
+            </div>
+        </div>
+    
+            </div>
+        </div>
+
+        <div class="ad-container">
+            AdSense In-Feed Ad
+        </div>
+
+        <div class="screen-section">
+            <div class="screen-header">
+                <h2>📉 Gap Down Stocks (<-5%)</h2>
+                <span class="count-badge">3 Results</span>
+            </div>
+            <div class="stock-grid">
+                
+        <div class="stock-card down">
+            <div class="stock-header">
+                <span class="symbol">HOOD</span>
+                <span class="sector">N/A</span>
+            </div>
+            <div class="stock-name">HOOD</div>
+            <div class="stock-metrics">
+                <div class="metric">
+                    <span class="label">Price</span>
+                    <span class="value">$89.91</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Change</span>
+                    <span class="value change negative">-9.62%</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Volume</span>
+                    <span class="value">59.3M</span>
+                </div>
+            </div>
+        </div>
+    
+        <div class="stock-card down">
+            <div class="stock-header">
+                <span class="symbol">UVXY</span>
+                <span class="sector">N/A</span>
+            </div>
+            <div class="stock-name">UVXY</div>
+            <div class="stock-metrics">
+                <div class="metric">
+                    <span class="label">Price</span>
+                    <span class="value">$34.63</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Change</span>
+                    <span class="value change negative">-6.98%</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Volume</span>
+                    <span class="value">8.4M</span>
+                </div>
+            </div>
+        </div>
+    
+        <div class="stock-card down">
+            <div class="stock-header">
+                <span class="symbol">MSTR</span>
+                <span class="sector">N/A</span>
+            </div>
+            <div class="stock-name">MSTR</div>
+            <div class="stock-metrics">
+                <div class="metric">
+                    <span class="label">Price</span>
+                    <span class="value">$139.63</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Change</span>
+                    <span class="value change negative">-6.73%</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Volume</span>
+                    <span class="value">26.9M</span>
+                </div>
+            </div>
+        </div>
+    
+            </div>
+        </div>
+
+        <div class="screen-section">
+            <div class="screen-header">
+                <h2>🔥 High Volume Movers</h2>
+                <span class="count-badge">25 Results</span>
+            </div>
+            <div class="stock-grid">
+                
+        <div class="stock-card down">
+            <div class="stock-header">
+                <span class="symbol">NVDA</span>
+                <span class="sector">N/A</span>
+            </div>
+            <div class="stock-name">NVDA</div>
+            <div class="stock-metrics">
+                <div class="metric">
+                    <span class="label">Price</span>
+                    <span class="value">$185.61</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Change</span>
+                    <span class="value change negative">-2.89%</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Volume</span>
+                    <span class="value">160.1M</span>
+                </div>
+            </div>
+        </div>
+    
+        <div class="stock-card up">
+            <div class="stock-header">
+                <span class="symbol">SPY</span>
+                <span class="sector">N/A</span>
+            </div>
+            <div class="stock-name">SPY</div>
+            <div class="stock-metrics">
+                <div class="metric">
+                    <span class="label">Price</span>
+                    <span class="value">$695.41</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Change</span>
+                    <span class="value change positive">+0.50%</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Volume</span>
+                    <span class="value">78.6M</span>
+                </div>
+            </div>
+        </div>
+    
+        <div class="stock-card up">
+            <div class="stock-header">
+                <span class="symbol">TQQQ</span>
+                <span class="sector">N/A</span>
+            </div>
+            <div class="stock-name">TQQQ</div>
+            <div class="stock-metrics">
+                <div class="metric">
+                    <span class="label">Price</span>
+                    <span class="value">$55.10</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Change</span>
+                    <span class="value change positive">+2.04%</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Volume</span>
+                    <span class="value">72.8M</span>
+                </div>
+            </div>
+        </div>
+    
+        <div class="stock-card up">
+            <div class="stock-header">
+                <span class="symbol">PLTR</span>
+                <span class="sector">N/A</span>
+            </div>
+            <div class="stock-name">PLTR</div>
+            <div class="stock-metrics">
+                <div class="metric">
+                    <span class="label">Price</span>
+                    <span class="value">$147.76</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Change</span>
+                    <span class="value change positive">+0.80%</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Volume</span>
+                    <span class="value">67.4M</span>
+                </div>
+            </div>
+        </div>
+    
+        <div class="stock-card down">
+            <div class="stock-header">
+                <span class="symbol">SOFI</span>
+                <span class="sector">N/A</span>
+            </div>
+            <div class="stock-name">SOFI</div>
+            <div class="stock-metrics">
+                <div class="metric">
+                    <span class="label">Price</span>
+                    <span class="value">$22.08</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Change</span>
+                    <span class="value change negative">-3.20%</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Volume</span>
+                    <span class="value">63.3M</span>
+                </div>
+            </div>
+        </div>
+    
+        <div class="stock-card down">
+            <div class="stock-header">
+                <span class="symbol">HOOD</span>
+                <span class="sector">N/A</span>
+            </div>
+            <div class="stock-name">HOOD</div>
+            <div class="stock-metrics">
+                <div class="metric">
+                    <span class="label">Price</span>
+                    <span class="value">$89.91</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Change</span>
+                    <span class="value change negative">-9.62%</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Volume</span>
+                    <span class="value">59.3M</span>
+                </div>
+            </div>
+        </div>
+    
+        <div class="stock-card up">
+            <div class="stock-header">
+                <span class="symbol">T</span>
+                <span class="sector">N/A</span>
+            </div>
+            <div class="stock-name">T</div>
+            <div class="stock-metrics">
+                <div class="metric">
+                    <span class="label">Price</span>
+                    <span class="value">$26.30</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Change</span>
+                    <span class="value change positive">+0.34%</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Volume</span>
+                    <span class="value">56.5M</span>
+                </div>
+            </div>
+        </div>
+    
+        <div class="stock-card down">
+            <div class="stock-header">
+                <span class="symbol">TSLA</span>
+                <span class="sector">N/A</span>
+            </div>
+            <div class="stock-name">TSLA</div>
+            <div class="stock-metrics">
+                <div class="metric">
+                    <span class="label">Price</span>
+                    <span class="value">$421.81</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Change</span>
+                    <span class="value change negative">-2.00%</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Volume</span>
+                    <span class="value">55.9M</span>
+                </div>
+            </div>
+        </div>
+    
+        <div class="stock-card up">
+            <div class="stock-header">
+                <span class="symbol">AMC</span>
+                <span class="sector">N/A</span>
+            </div>
+            <div class="stock-name">AMC</div>
+            <div class="stock-metrics">
+                <div class="metric">
+                    <span class="label">Price</span>
+                    <span class="value">$1.40</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Change</span>
+                    <span class="value change positive">+0.72%</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Volume</span>
+                    <span class="value">49.7M</span>
+                </div>
+            </div>
+        </div>
+    
+        <div class="stock-card down">
+            <div class="stock-header">
+                <span class="symbol">F</span>
+                <span class="sector">N/A</span>
+            </div>
+            <div class="stock-name">F</div>
+            <div class="stock-metrics">
+                <div class="metric">
+                    <span class="label">Price</span>
+                    <span class="value">$13.81</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Change</span>
+                    <span class="value change negative">-0.50%</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Volume</span>
+                    <span class="value">46.9M</span>
+                </div>
+            </div>
+        </div>
+    
+        <div class="stock-card down">
+            <div class="stock-header">
+                <span class="symbol">SQQQ</span>
+                <span class="sector">N/A</span>
+            </div>
+            <div class="stock-name">SQQQ</div>
+            <div class="stock-metrics">
+                <div class="metric">
+                    <span class="label">Price</span>
+                    <span class="value">$64.91</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Change</span>
+                    <span class="value change negative">-2.04%</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Volume</span>
+                    <span class="value">46.3M</span>
+                </div>
+            </div>
+        </div>
+    
+        <div class="stock-card up">
+            <div class="stock-header">
+                <span class="symbol">QQQ</span>
+                <span class="sector">N/A</span>
+            </div>
+            <div class="stock-name">QQQ</div>
+            <div class="stock-metrics">
+                <div class="metric">
+                    <span class="label">Price</span>
+                    <span class="value">$626.14</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Change</span>
+                    <span class="value change positive">+0.69%</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Volume</span>
+                    <span class="value">46.2M</span>
+                </div>
+            </div>
+        </div>
+    
+        <div class="stock-card up">
+            <div class="stock-header">
+                <span class="symbol">IWM</span>
+                <span class="sector">N/A</span>
+            </div>
+            <div class="stock-name">IWM</div>
+            <div class="stock-metrics">
+                <div class="metric">
+                    <span class="label">Price</span>
+                    <span class="value">$262.18</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Change</span>
+                    <span class="value change positive">+0.97%</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Volume</span>
+                    <span class="value">42.5M</span>
+                </div>
+            </div>
+        </div>
+    
+        <div class="stock-card down">
+            <div class="stock-header">
+                <span class="symbol">NFLX</span>
+                <span class="sector">N/A</span>
+            </div>
+            <div class="stock-name">NFLX</div>
+            <div class="stock-metrics">
+                <div class="metric">
+                    <span class="label">Price</span>
+                    <span class="value">$82.76</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Change</span>
+                    <span class="value change negative">-0.88%</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Volume</span>
+                    <span class="value">41.2M</span>
+                </div>
+            </div>
+        </div>
+    
+        <div class="stock-card up">
+            <div class="stock-header">
+                <span class="symbol">AMD</span>
+                <span class="sector">N/A</span>
+            </div>
+            <div class="stock-name">AMD</div>
+            <div class="stock-metrics">
+                <div class="metric">
+                    <span class="label">Price</span>
+                    <span class="value">$246.27</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Change</span>
+                    <span class="value change positive">+4.03%</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Volume</span>
+                    <span class="value">35.7M</span>
+                </div>
+            </div>
+        </div>
+    
+        <div class="stock-card up">
+            <div class="stock-header">
+                <span class="symbol">AMZN</span>
+                <span class="sector">N/A</span>
+            </div>
+            <div class="stock-name">AMZN</div>
+            <div class="stock-metrics">
+                <div class="metric">
+                    <span class="label">Price</span>
+                    <span class="value">$242.96</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Change</span>
+                    <span class="value change positive">+1.53%</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Volume</span>
+                    <span class="value">35.4M</span>
+                </div>
+            </div>
+        </div>
+    
+        <div class="stock-card up">
+            <div class="stock-header">
+                <span class="symbol">BAC</span>
+                <span class="sector">N/A</span>
+            </div>
+            <div class="stock-name">BAC</div>
+            <div class="stock-metrics">
+                <div class="metric">
+                    <span class="label">Price</span>
+                    <span class="value">$54.03</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Change</span>
+                    <span class="value change positive">+1.56%</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Volume</span>
+                    <span class="value">34.6M</span>
+                </div>
+            </div>
+        </div>
+    
+        <div class="stock-card up">
+            <div class="stock-header">
+                <span class="symbol">GOOGL</span>
+                <span class="sector">N/A</span>
+            </div>
+            <div class="stock-name">GOOGL</div>
+            <div class="stock-metrics">
+                <div class="metric">
+                    <span class="label">Price</span>
+                    <span class="value">$343.69</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Change</span>
+                    <span class="value change positive">+1.61%</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Volume</span>
+                    <span class="value">31.7M</span>
+                </div>
+            </div>
+        </div>
+    
+        <div class="stock-card down">
+            <div class="stock-header">
+                <span class="symbol">XOM</span>
+                <span class="sector">N/A</span>
+            </div>
+            <div class="stock-name">XOM</div>
+            <div class="stock-metrics">
+                <div class="metric">
+                    <span class="label">Price</span>
+                    <span class="value">$138.40</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Change</span>
+                    <span class="value change negative">-2.12%</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Volume</span>
+                    <span class="value">27.7M</span>
+                </div>
+            </div>
+        </div>
+    
+        <div class="stock-card down">
+            <div class="stock-header">
+                <span class="symbol">MSTR</span>
+                <span class="sector">N/A</span>
+            </div>
+            <div class="stock-name">MSTR</div>
+            <div class="stock-metrics">
+                <div class="metric">
+                    <span class="label">Price</span>
+                    <span class="value">$139.63</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Change</span>
+                    <span class="value change negative">-6.73%</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Volume</span>
+                    <span class="value">26.9M</span>
+                </div>
+            </div>
+        </div>
+    
+            </div>
+        </div>
+
+        <div class="screen-section">
+            <div class="screen-header">
+                <h2>💰 Penny Stock Movers (<$5)</h2>
+                <span class="count-badge">0 Results</span>
+            </div>
+            <div class="stock-grid">
+                <div class="empty-state">No penny stocks moving significantly</div>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2026 Pre-Market Brief | Real-time stock screening</p>
+            <p style="margin-top: 10px; font-size: 0.8em;">Data delayed. Not investment advice.</p>
+        </footer>
+    </div>
+</body>
+</html>
